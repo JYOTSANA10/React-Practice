@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Plus , Minus } from "./actions/index";
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  const count = useSelector((state)=> state.PlusMinus);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className='number'>
+          <a className="minus" onClick={ () => dispatch(Minus())}>-</a>
+          <input type="text" className='counter' value={count}/>
+          <a className='plus' onClick={() => dispatch(Plus())}>+</a>
+      </div>
+    </>                                      
   );
 }
 
