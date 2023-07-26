@@ -3,34 +3,38 @@ import "./App.css";
 import Personal from "./components/Personal";
 import Education from "./components/Education";
 import Language from "./components/Language";
+import Datashow from "./components/Datashow";
+
+
 
 function App() {
 
   const [step,setStep]=useState(0);
+  const [formdata,setFormdata] =useState({fname:"",lname:"",cno:"", board:[], per:[],lan:[],sublan:[]})
 
-console.log("step",step);
+// console.log("step",step);
 
   const changeStep = () =>{
     setStep(step+1);
-    console.log(step);
+    // console.log(step);
   }
 
   const changeField = () =>{
 
     if(step===0){
-      return <Personal/>
+      return <Personal formdata={formdata} setFormdata={setFormdata} />
     }else if(step===1){
       const data=  document.getElementById('payment');
       data.classList.add("active");
-      return <Education/>
+      return <Education formdata={formdata} setFormdata={setFormdata} />
     }else if(step===2){
       const data=  document.getElementById('language');
       data.classList.add("active");
-      return <Language/>
+      return <Language formdata={formdata} setFormdata={setFormdata}/>
     }else{
       const data=  document.getElementById('confirm');
       data.classList.add("active");
-      <h1>Success</h1>
+      return <Datashow formdata={formdata} />
     }
 
   }
@@ -69,10 +73,11 @@ console.log("step",step);
                 <div>
                   {changeField()}
                 </div>
-                <div >
-                  { step === 0 ?  null : <button onClick={ () => setStep(step-1) }>Prev</button>}
+                <div className=" mt-5">
+               
+                  { step === 0 || step>2 ?  null : <button className="btn btn-primary me-md-2" onClick={ () => setStep(step-1) }>Prev</button>}
                   
-                  { step === 2 ? <button onClick={ ()=> changeStep() }> Submit</button> :<button onClick={ ()=> changeStep() }> Next</button>}
+                  { step === 2 ? <button className="btn btn-success me-md-2" onClick={ ()=> changeStep() }> Submit</button> : (step > 2 ? null:<button className="btn btn-primary me-md-2" onClick={ ()=> changeStep() }> Next</button>)}
                 </div>
               </div>
             </div>
